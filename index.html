@@ -8,9 +8,7 @@
 		<meta name="description" content="project HotHotHot"/>
 		<meta name="keywords" content="HTML, CSS, javascript, projet, étudiants, aix, aix-en-provence, informatique, iut, dut, stagiaire, web, web dev, développement web, developpement web">
 		<meta name="date" content="2022-02-25"/>
-		<link id="Style" rel="stylesheet" href="/Projet-JS-HotHotHot/style.css">
-		<link rel="manifest" href="/Projet-JS-HotHotHot/manifest.webmanifest">
-		<script defer src="/Projet-JS-HotHotHot/app.js"></script>
+		<link id="Style" rel="stylesheet" href="assets/style.css">
 		<!-- <link rel="icon" href="assets/favicon.ico"/>  -->
 		<script src="https://kit.fontawesome.com/4823553caa.js" crossorigin="anonymous"></script>
 	</head>
@@ -26,10 +24,70 @@
     	</nav> 
 
 		<div id="texte">
-			<p>blablabla</p>
+			<p>on va mettre les capteurs ici hein</p>
 		</div>
 
+		<div id="sensors"></div>
+        <script>
 
+            function getTodaySensors(sensorData)
+            {
+                var todaySensors;
 
-	</body>
+                for(let i = 0; i < sensorData.capteurs.length; i++)
+                {
+                    let sensorDate = new Date(sensorData.capteurs[i].Timestamp);
+                    let currentDate = new Date(Date.now());
+
+                    if(sensorDate.getFullYear() == currentDate.getFullYear() && sensorDate.getDate() == currentDate.getDate() && sensorDate.getDay() == currentDate.getDay())
+                        todaySensors.add(sensorData.capteurs[i]);
+                }
+            }
+
+            function readSensors(sensorData)
+            {
+                var sensors = document.getElementById("sensors");
+
+                for(let i = 0; i < sensorData.capteurs.length; i++)
+                {
+                    let div          = document.createElement("div");
+                    let p            = document.createElement("p");
+                    let ul           = document.createElement("ul");
+                    let sensorType   = document.createElement("li");
+                    let localisation = document.createElement("li");
+                    let value        = document.createElement("li");
+                    let date         = document.createElement("li");
+
+                    sensors.appendChild(div);
+                    div.appendChild(p);
+                    div.appendChild(ul);        
+                    ul.appendChild(sensorType); 
+                    ul.appendChild(localisation);
+                    ul.appendChild(value);
+                    ul.appendChild(date);
+
+                    p.innerHTML            = "Capteur " + (i + 1);
+                    sensorType.innerHTML   = "Type : " + sensorData.capteurs[i].type;
+                    localisation.innerHTML = "Emplacement : " + sensorData.capteurs[i].Nom;
+                    value.innerHTML        = "Valeur : " + sensorData.capteurs[i].Valeur;
+                    date.innerHTML         = "Date : " + new Date(sensorData.capteurs[i].Timestamp).toDateString();
+                }
+            }
+
+                console.log("Echec de la connexion au serveur WSS, utilisation de fetch");
+
+                fetch('https://hothothot.dog/api/capteurs').then(function (response)
+                {
+                    return response.json();
+                }).then(function (sensorData)
+                {
+                    readSensors(sensorData);
+                    console.log(getTodaySensors(sensorData));
+                }).catch(function (err)
+                {
+                    console.warn('Echec de fetch', err);
+                });
+            //}
+        </script>
+    </body>
 </html>
