@@ -1,7 +1,7 @@
 {
     "name": "HotHotHot",
     "short_name": "HHH",
-    "start_url": "/index.js",
+    "start_url": "/index.html",
     "display": "standalone",
     "icons": [
         {
