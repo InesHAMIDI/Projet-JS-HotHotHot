@@ -2,11 +2,11 @@
     "name": "HotHotHot",
     "short_name": "HHH",
     "start_url": "/index.html",
-    "display": "standalone",
+    "display": "fullscreen",
     "icons": [
         {
             "src": "images/duck.png",
-            "sizes": "512x512",
+            "sizes": "400x400",
             "type": "image/png"
         }
 
