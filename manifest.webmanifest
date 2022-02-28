@@ -2,7 +2,7 @@
     "name": "HotHotHot",
     "short_name": "HHH",
     "start_url": "/Projet-JS-HotHotHot/index.html",
-    "display": "fullscreen",
+    "display": "standalone",
     "icons": [
         {
             "src": "images/duck.png",
