@@ -1,14 +1,14 @@
 {
     "name": "HotHotHot",
     "short_name": "HHH",
-    "start_url": "./?utm_source=web_app_manifest",
+    "start_url": "/index.js",
     "display": "standalone",
     "icons": [
         {
             "src": "images/duck.png",
             "sizes": "48x48",
             "type": "image/png"
-        },
+        }
 
     ],
     "related_applications": [
