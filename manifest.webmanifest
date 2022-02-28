@@ -5,15 +5,11 @@
     "display": "standalone",
     "icons": [
         {
-            "src": "images/touch/homescreen48.png",
+            "src": "images/duck.png",
             "sizes": "48x48",
             "type": "image/png"
         },
-        {
-            "src": "images/touch/homescreen72.png",
-            "sizes": "72x72",
-            "type": "image/png"
-        }
+
     ],
     "related_applications": [
         {
