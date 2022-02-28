@@ -1,7 +1,7 @@
 {
     "name": "HotHotHot",
     "short_name": "HHH",
-    "start_url": "/index.html",
+    "start_url": "/Projet-JS-HotHotHot/index.html",
     "display": "fullscreen",
     "icons": [
         {
