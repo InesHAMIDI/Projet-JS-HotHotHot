@@ -16,6 +16,7 @@ self.addEventListener('install', (e) => {
   });*/
 
   self.addEventListener('fetch', function(event) {
+    console.log(event.request.url);
     event.respondWith(
       caches.open('mysite-dynamic').then(function(cache) {
         return cache.match(event.request).then(function (response) {
