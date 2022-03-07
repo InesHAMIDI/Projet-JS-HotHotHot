@@ -20,7 +20,7 @@ self.addEventListener('install', (e) => {
     e.respondWith(
         caches.match(e.request).then((response) =>
           response || fetch(e.request).then((response) =>
-            caches.open('HotHothot').then((cache)=> {
+            caches.open('HotHotHot').then((cache)=> {
               cache.put(e.request, response.clone());
               return response;
             })
