@@ -15,13 +15,13 @@ self.addEventListener('install', (e) => {
     );
   });*/
 
-  self.addEventListener('fetch', function(event) {
-    console.log(event.request.url);
-    event.respondWith(
+  self.addEventListener('fetch', (e) => {
+    console.log(e.request.url);
+    e.respondWith(
       caches.open('mysite-dynamic').then(function(cache) {
-        return cache.match(event.request).then(function (response) {
-          return response || fetch(event.request).then(function(response) {
-            cache.put(event.request, response.clone());
+        return cache.match(e.request).then(function (response) {
+          return response || fetch(e.request).then(function(response) {
+            cache.put(e.request, response.clone());
             return response;
           });
         });
