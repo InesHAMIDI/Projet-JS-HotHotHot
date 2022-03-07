@@ -20,9 +20,12 @@ self.addEventListener('install', (e) => {
     e.respondWith(
         caches.match(e.request).then((response) =>
           response || fetch(e.request).then((response) =>
-            caches.put(e.request, response.clone())
-           
-          ))
+            caches.open('HotHothot').then((cache)=> {
+              cache.put(e.request, response.clone());
+              return response;
+            })
+            
+        ))
     
     );
   });
