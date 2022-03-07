@@ -18,11 +18,11 @@ self.addEventListener('install', (e) => {
   self.addEventListener('fetch', (e) => {
     console.log(e.request.url);
     e.respondWith(
-        cache.match(e.request).then(function (response) {
-          return response || fetch(e.request).then(function(response) {
-            cache.put(e.request, response.clone());
-            return response;
-          });
-      })
+        cache.match(e.request).then((response) =>
+          response || fetch(e.request).then((response) =>
+            cache.put(e.request, response.clone())
+           
+          ))
+    
     );
   });
