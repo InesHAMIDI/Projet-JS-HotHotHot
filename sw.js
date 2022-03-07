@@ -8,9 +8,22 @@ self.addEventListener('install', (e) => {
     );
   });
   
-  self.addEventListener('fetch', (e) => {
+  /*self.addEventListener('fetch', (e) => {
     console.log(e.request.url);
     e.respondWith(
       caches.match(e.request).then((response) => response || fetch(e.request)),
+    );
+  });*/
+
+  self.addEventListener('fetch', function(event) {
+    event.respondWith(
+      caches.open('mysite-dynamic').then(function(cache) {
+        return cache.match(event.request).then(function (response) {
+          return response || fetch(event.request).then(function(response) {
+            cache.put(event.request, response.clone());
+            return response;
+          });
+        });
+      })
     );
   });
