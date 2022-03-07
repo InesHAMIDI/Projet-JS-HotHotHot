@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <title>index</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <h1>Données des capteurs</h1>
+
+        <div id="sensors">
+
+        </div>
+
+        <script src="Sensor.js"></script>
+
+        <script>
+
+            function getMaxDailyValue(sensor)
+            {
+                var today = new Array();
+
+                for(let i = 0; i < sensors.length; i++)
+                {
+                    let sensorDate = new Date(sensors[i].timestamp);
+                    let currentDate = new Date(Date.now());
+
+                    if(sensorDate.getFullYear() == currentDate.getFullYear() && sensorDate.getDate() == currentDate.getDate() && sensorDate.getDay() == currentDate.getDay())
+                        todaySensors.push(sensorData.capteurs[i]);
+                }
+
+                return todaySensors;
+            }
+
+            // Réupération des données des capteurs par wss ou fetch
+
+            /*
+
+            var socket = new WebSocket("wss://ws.hothothot.dog:9502");
+            socket.onopen = function(event)
+            {
+                console.log("Connecté au serveur WSS");
+
+                socket.send("message");
+        
+                socket.onmessage = function(event)
+                {   
+                    displaySensors(JSON.parse(event.data));
+                }
+            }
+            socket.onerror = function(event)
+            {
+                console.log("Echec de la connexion au serveur WSS, utilisation de fetch");
+
+                fetch('https://hothothot.dog/api/capteurs').then(function (response)
+                {
+                    return response.json();
+                }).then(function (data)
+                {
+                    displaySensors(JSON.parse(data).capteurs);
+                }).catch(function (err)
+                {
+                    console.warn('Echec de fetch', err);
+                });
+            }
+
+            */
+
+            var data = '{"HotHotHot":"Api v1.0","capteurs":[{"type":"Thermique","Nom":"interieur","Valeur":"14.9","Timestamp":' + Date.now() + '},{"type":"Thermique","Nom":"exterieur","Valeur":"4.8","Timestamp":' + 3213123123123 + '}]}';
+
+            var sensorsData = JSON.parse(data).capteurs;
+            var sensors = new Array();
+
+            sensors.push(new Sensor("Capteur 1", "Thermique", "Interieur"));
+            sensors.push(new Sensor("Capteur 2", "Thermique", "Exterieur"));
+
+            sensors[0].addData(sensorsData[0].Timestamp, sensorsData[0].Valeur);
+            sensors[1].addData(sensorsData[1].Timestamp, sensorsData[1].Valeur);
+
+            sensors[0].display();
+            sensors[1].display();
+
+            console.log(sensors[0].getTodayData());
+            console.log(sensors[0].getMinValue());
+
+        </script>
+    </body>
+</html>
