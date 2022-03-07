@@ -1,6 +1,6 @@
 # lien gitpod pour modif en ligne : https://ineshamidi-projetjshotho-09ucxxak8dz.ws-eu34.gitpod.io/
 
-
+#lien pages : https://ineshamidi.github.io/Projet-JS-HotHotHot/
 
 
 # DUT, M4103C, Programmation web, client riche.
