@@ -16,22 +16,6 @@
 
         <script>
 
-            function getMaxDailyValue(sensor)
-            {
-                var today = new Array();
-
-                for(let i = 0; i < sensors.length; i++)
-                {
-                    let sensorDate = new Date(sensors[i].timestamp);
-                    let currentDate = new Date(Date.now());
-
-                    if(sensorDate.getFullYear() == currentDate.getFullYear() && sensorDate.getDate() == currentDate.getDate() && sensorDate.getDay() == currentDate.getDay())
-                        todaySensors.push(sensorData.capteurs[i]);
-                }
-
-                return todaySensors;
-            }
-
             // Réupération des données des capteurs par wss ou fetch
 
             /*
@@ -66,22 +50,118 @@
 
             */
 
-            var data = '{"HotHotHot":"Api v1.0","capteurs":[{"type":"Thermique","Nom":"interieur","Valeur":"14.9","Timestamp":' + Date.now() + '},{"type":"Thermique","Nom":"exterieur","Valeur":"4.8","Timestamp":' + 3213123123123 + '}]}';
+            function getRandomArbitrary(min, max)
+            {
+                return Math.random() * (max - min) + min;
+            }
 
-            var sensorsData = JSON.parse(data).capteurs;
+            function generateSensorData(sensors)
+            {
+                let data = '{"HotHotHot":"Api v1.0","capteurs":[';
+
+                for(let i = 0; i < sensors.length; i++)
+                {
+                    let value1 = -1;
+                    let value2 = parseInt(getRandomArbitrary(0, 10));
+                    let location = -1;
+
+                    if(sensors[i].type == "Thermique")
+                    {
+                        switch(sensors[i].location)
+                        {
+                            case "Interieur":
+                                value1 = parseInt(getRandomArbitrary(12, 29));
+                                location = "interieur";
+                            break;
+                            case "Exterieur":
+                                value1 = parseInt(getRandomArbitrary(-5, 38));
+                                location = "exterieur";
+                            break;
+                            default:
+                            break;
+                        }
+
+                        data += '{"type":"Thermique","Nom":"' + location + '","Valeur":"' + value1 + '.' + value2 + '","Timestamp":' + Date.now() + '}';
+
+                        if(i != sensors.length-1)
+                            data += ',';
+                    }
+                }
+
+                data += ']}';
+
+                return data;
+            }
+
+            function updateSensors(sensors, simulate)
+            {
+                //var data = '{"HotHotHot":"Api v1.0","capteurs":[{"type":"Thermique","Nom":"interieur","Valeur":"14.9","Timestamp":' + Date.now() + '},{"type":"Thermique","Nom":"exterieur","Valeur":"4.8","Timestamp":' + 3213123123123 + '}]}';
+
+                var data;
+
+                if(simulate)
+                {
+                    data = generateSensorData(sensors);
+                }
+                else
+                {
+                    var socket = new WebSocket("wss://ws.hothothot.dog:9502");
+                    socket.onopen = function(event)
+                    {
+                        console.log("Connecté au serveur WSS");
+
+                        socket.send("message");
+                
+                        socket.onmessage = function(event)
+                        {   
+                            //displaySensors(JSON.parse(event.data));
+                            data = event.data;
+                            var sensorsData = JSON.parse(data).capteurs;
+
+                            for(let i = 0; i < sensorsData.length; i++)
+                            {
+                                sensors[i].addData(sensorsData[i].Timestamp, sensorsData[i].Valeur);
+                                sensors[i].display();
+                            }
+
+                            console.log(sensors[0].getTodayMinValue() + ' ' + sensors[0].getTodayMaxValue());
+                        }
+                    }
+                    socket.onerror = function(event)
+                    {
+                        console.log("Echec de la connexion au serveur WSS, utilisation de fetch");
+
+                        fetch('https://hothothot.dog/api/capteurs').then(function (response)
+                        {
+                            return response.json();
+                        }).then(function (data)
+                        {
+                            displaySensors(JSON.parse(data).capteurs);
+                        }).catch(function (err)
+                        {
+                            console.warn('Echec de fetch', err);
+                        });
+                    }
+                }
+
+                console.log(data);
+                var sensorsData = JSON.parse(data).capteurs;
+
+                for(let i = 0; i < sensorsData.length; i++)
+                {
+                    sensors[i].addData(sensorsData[i].Timestamp, sensorsData[i].Valeur);
+                    sensors[i].display();
+                }
+
+                console.log(sensors[0].getTodayMinValue() + ' ' + sensors[0].getTodayMaxValue());
+            }
+
             var sensors = new Array();
 
             sensors.push(new Sensor("Capteur 1", "Thermique", "Interieur"));
             sensors.push(new Sensor("Capteur 2", "Thermique", "Exterieur"));
 
-            sensors[0].addData(sensorsData[0].Timestamp, sensorsData[0].Valeur);
-            sensors[1].addData(sensorsData[1].Timestamp, sensorsData[1].Valeur);
-
-            sensors[0].display();
-            sensors[1].display();
-
-            console.log(sensors[0].getTodayData());
-            console.log(sensors[0].getMinValue());
+            setInterval(updateSensors, 1000, sensors, false);
 
         </script>
     </body>
