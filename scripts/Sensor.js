@@ -16,6 +16,8 @@ class Sensor
         this.htmlLocation  = document.createElement("li");
         this.htmlTimestamp = document.createElement("li");
         this.htmlValue     = document.createElement("li");
+        this.htmlMin       = document.createElement("li");
+        this.htmlMax       = document.createElement("li");
 
         sensors.appendChild(this.htmlDiv);
         this.htmlDiv.appendChild(this.htmlP);
@@ -24,6 +26,8 @@ class Sensor
         this.htmlUl.appendChild(this.htmlLocation);
         this.htmlUl.appendChild(this.htmlTimestamp);
         this.htmlUl.appendChild(this.htmlValue);
+        this.htmlUl.appendChild(this.htmlMin);
+        this.htmlUl.appendChild(this.htmlMax);
 	}
 
 	getData()
@@ -98,42 +102,16 @@ class Sensor
 
 	display()
 	{
-		/*let sensors = document.getElementById("sensors");
-
-        let div          = document.createElement("div");
-        let p            = document.createElement("p");
-        let ul           = document.createElement("ul");
-        let type         = document.createElement("li");
-        let location     = document.createElement("li");
-        let timestamp    = document.createElement("li");
-        let value        = document.createElement("li");
-
-        sensors.appendChild(div);
-        div.appendChild(p);
-        div.appendChild(ul);
-        ul.appendChild(type); 
-        ul.appendChild(location);
-        ul.appendChild(timestamp);
-        ul.appendChild(value);
-
-        p.innerHTML         = this.name;
-        type.innerHTML      = this.type;
-        location.innerHTML  = this.location;
-
-        if(this.data[this.data.length-1] !== undefined)
-        {
-        	timestamp.innerHTML = new Date(this.data[this.data.length-1][0]).toDateString();
-        	value.innerHTML     = this.data[this.data.length-1][1];
-        }*/
-
         this.htmlP.innerHTML        = this.name;
-        this.htmlType.innerHTML      = this.type;
+        this.htmlType.innerHTML     = this.type;
         this.htmlLocation.innerHTML = this.location;
 
         if(this.data[this.data.length-1] !== undefined)
         {
         	this.htmlTimestamp.innerHTML = new Date(this.data[this.data.length-1][0]).toDateString();
-        	this.htmlValue.innerHTML     = this.data[this.data.length-1][1];
+        	this.htmlValue.innerHTML     = 'Valeur = ' + this.data[this.data.length-1][1];
+        	this.htmlMin.innerHTML       = 'Min = ' + this.getTodayMinValue();
+        	this.htmlMax.innerHTML       = 'Max = ' + this.getTodayMaxValue();
         }
 	}
 };
