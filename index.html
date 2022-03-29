@@ -3,7 +3,7 @@
 	<head>
 		<title>HotHotHot project</title>
 		<meta charset="utf-8"/>
-		<meta name="viewport" content="whidth=device-width, initial-scale=1.0"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 		<meta name="autor" content="DERRIVES angèle - GROSJEAN Florian - HAMIDI Inès - HASPEKIAN Yvan"/>
 		<meta name="description" content="project HotHotHot"/>
 		<meta name="keywords" content="HTML, CSS, javascript, projet, étudiants, aix, aix-en-provence, informatique, iut, dut, stagiaire, web, web dev, développement web, developpement web">
@@ -27,75 +27,14 @@
 			</aside>
     	</nav> 
 
-		<div id="texte">
-			<p>on va mettre les capteurs ici hein</p>
-		</div>
-        <canvas id="graph"></canvas>
-        
 		<div id="sensors"></div>
+        <canvas id="graph"></canvas>
+
+        <script src="scripts/Sensor.js"></script>
+        <script src="scripts/SensorData.js"></script>
+        <script src="graph.js"></script>
+
         <script>
-
-            function getTodaySensors(sensorData)
-            {
-                var todaySensors;
-
-                for(let i = 0; i < sensorData.capteurs.length; i++)
-                {
-                    let sensorDate = new Date(sensorData.capteurs[i].Timestamp);
-                    let currentDate = new Date(Date.now());
-
-                    if(sensorDate.getFullYear() == currentDate.getFullYear() && sensorDate.getDate() == currentDate.getDate() && sensorDate.getDay() == currentDate.getDay())
-                        todaySensors.add(sensorData.capteurs[i]);
-                }
-            }
-
-            function readSensors(sensorData)
-            {
-                var sensors = document.getElementById("sensors");
-
-                for(let i = 0; i < sensorData.capteurs.length; i++)
-                {
-                    let div          = document.createElement("div");
-                    let p            = document.createElement("p");
-                    let ul           = document.createElement("ul");
-                    let sensorType   = document.createElement("li");
-                    let localisation = document.createElement("li");
-                    let value        = document.createElement("li");
-                    let date         = document.createElement("li");
-
-                    sensors.appendChild(div);
-                    div.appendChild(p);
-                    div.appendChild(ul);        
-                    ul.appendChild(sensorType); 
-                    ul.appendChild(localisation);
-                    ul.appendChild(value);
-                    ul.appendChild(date);
-
-                    p.innerHTML            = "Capteur " + (i + 1);
-                    sensorType.innerHTML   = "Type : " + sensorData.capteurs[i].type;
-                    localisation.innerHTML = "Emplacement : " + sensorData.capteurs[i].Nom;
-                    value.innerHTML        = "Valeur : " + sensorData.capteurs[i].Valeur;
-                    date.innerHTML         = "Date : " + new Date(sensorData.capteurs[i].Timestamp).toDateString();
-                }
-            }
-
-                console.log("Echec de la connexion au serveur WSS, utilisation de fetch");
-
-                fetch('https://hothothot.dog/api/capteurs').then(function (response)
-                {
-                    return response.json();
-                }).then(function (sensorData)
-                {
-                    readSensors(sensorData);
-                    console.log(getTodaySensors(sensorData));
-                }).catch(function (err)
-                {
-                    console.warn('Echec de fetch', err);
-                });
-            //}
-        </script>
-
-		<script>
 		var button = document.getElementById("notifications");
 		button.addEventListener('click', function(e) {
 			Notification.requestPermission().then(function(result) {
@@ -114,19 +53,16 @@
 
 		function Notif(msg) {
     		var notifTitle = $msg;
-    		var notifBody = ;
-    		var notifImg = ;
+    		var notifBody = "notifBody";
+    		var notifImg = "";
     		var options = {
         		body: notifBody,
         		icon: notifImg
     		}
     	var notif = new Notification(notifTitle, options);
     	setTimeout(Notif, 30000);
-}
+		}
 
 		</script>
-
-
-		<script src="graph.js"></script>
     </body>
 </html>

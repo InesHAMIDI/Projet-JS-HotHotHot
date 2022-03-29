@@ -25,11 +25,14 @@ aside {
     margin: 20px;
 }
 
-#texte {
-    margin-top:4%;
-    color: #0A1D37;
-}
-
 #paragraphe {
     margin-left: 2%;
+}
+
+#sensors {
+    margin-top:12%;
+}
+
+ul {
+    list-style-type: none;
 }
