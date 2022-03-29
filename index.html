@@ -95,6 +95,38 @@
             //}
         </script>
 
-        <script src="graph.js"></script>
+		<script>
+		var button = document.getElementById("notifications");
+		button.addEventListener('click', function(e) {
+			Notification.requestPermission().then(function(result) {
+				if(result === 'granted') {
+					TempNotification();
+				}
+			});
+		});
+		var msg;
+		function TempNotification(sensors){
+			if (CapteurInterior > 35){
+				msg = "HotHotHot !";
+			}
+		};
+
+
+		function Notif(msg) {
+    		var notifTitle = $msg;
+    		var notifBody = ;
+    		var notifImg = ;
+    		var options = {
+        		body: notifBody,
+        		icon: notifImg
+    		}
+    	var notif = new Notification(notifTitle, options);
+    	setTimeout(Notif, 30000);
+}
+
+		</script>
+
+
+		<script src="graph.js"></script>
     </body>
 </html>
