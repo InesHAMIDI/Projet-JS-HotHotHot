@@ -2,6 +2,9 @@ const graph = document.getElementById("graph").getContext("2d");
 
 Chart.defaults.global.defaultFontSize = 18;
 
+console.log("COUCOU\n");
+console.log(graph);
+
 let massPopChart = new Chart(graph, {
   type: "ligne", // bar, horizontalBar, pie, line, doughnut, radar, polarArea
   data: {

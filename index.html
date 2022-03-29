@@ -14,6 +14,7 @@
 		<!-- <link rel="icon" href="assets/favicon.ico"/>  -->
 		<script src="https://kit.fontawesome.com/4823553caa.js" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+        <script src="graph.js"></script>
 	</head>
 
 	<body>
@@ -22,7 +23,8 @@
             	<div id="icon"><a href="#debut" onclick="closeLeftNav()" title="accueil"><i class="fas fa-home"></i></a></div>
         	    <div id="icon"><a href="doc.html" onclick="closeLeftNav()" title="documentation"><i class="fa fa-users"></i></a></div>
 				<div id="icon"><a href="https://github.com/InesHAMIDI/Projet-JS-HotHotHot" target="_blank" onclick="closeLeftNav()" title="github"><i class="fab fa-github"></i></a></div>
-				<br>
+				
+                <br>
 			</aside>
     	</nav> 
 
@@ -94,64 +96,6 @@
             //}
         </script>
 
-        <script>
-            const graph = document.getElementById("graph").getContext("2d");
-
-            Chart.defaults.global.defaultFontSize = 18;
-
-            let massPopChart = new Chart(graph, {
-            type: "ligne", // bar, horizontalBar, pie, line, doughnut, radar, polarArea
-            data: {
-                labels: [
-                "Abidjan",
-                "Alger",
-                "Bamako",
-                "Casablanca",
-                "Dakar",
-                "Kinshasa",
-                "Montreal",
-                "Paris",
-                ],
-                datasets: [
-                {
-                    label: "Population en M ",
-                    data: [6, 8, 3, 4, 4, 17, 4, 12],
-                    // backgroundColor: "blue",
-                    backgroundColor: [
-                    "red",
-                    "orange",
-                    "salmon",
-                    "blue",
-                    "yellow",
-                    "purple",
-                    "green",
-                    "tomato",
-                    ],
-                    hoverBorderWidth: 3,
-                },
-                ],
-            },
-            options: {
-                title: {
-                display: true,
-                text: "Populations Francophones",
-                fontSize: 24,
-                },
-                legend: {
-                display: true,
-                },
-                // start at 0
-                scales: {
-                yAxes: [
-                    {
-                    ticks: {
-                        beginAtZero: true,
-                    },
-                    },
-                ],
-                },
-            },
-            });
-        </script>
+        
     </body>
 </html>
