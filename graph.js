@@ -1,35 +1,40 @@
 const graph = document.getElementById("graph").getContext("2d");
 
-Chart.defaults.global.defaultFontSize = 18;
 
-let massPopChart = new Chart(graph, {
+var sensors = new Array();
+
+sensors.push(new Sensor("Capteur 1", "Thermique", "Interieur"));
+sensors.push(new Sensor("Capteur 2", "Thermique", "Exterieur"));
+
+setInterval(function() {
+       var sensor = new Array();
+       sensor = updateSensors(sensors, true);
+       console.log(sensor);
+       addData(sensor);
+    }, 3000 );
+
+
+var i = 0;
+Chart.defaults.global.defaultFontSize = 18;
+let chart = new Chart(graph, {
   type: "line", // bar, horizontalBar, pie, line, doughnut, radar, polarArea
   data: {
     labels: [
-      "Abidjan",
-      "Alger",
-      "Bamako",
-      "Casablanca",
-      "Dakar",
-      "Kinshasa",
-      "Montreal",
-      "Paris",
+      "Capteur",
     ],
     datasets: [
       {
-        label: "Population en M ",
-        data: [6, 8, 3, 4, 4, 17, 4, 12],
-        // backgroundColor: "blue",
-        backgroundColor: [
-          "red",
-          "orange",
-          "salmon",
-          "blue",
-          "yellow",
-          "purple",
-          "green",
-          "tomato",
-        ],
+        label: ["Exterieur "],
+        data: [10,10],
+        backgroundColor: 'rgba(150, 249, 231,90)',
+        borderColor: 'rgb(0.99.132',
+        hoverBorderWidth: 3,
+      },
+      {
+        label: "interieur ",
+        data: [10,10],
+        backgroundColor: "rgba(245, 249, 150,90)",
+        borderColor: 'rgb(0.200.0',
         hoverBorderWidth: 3,
       },
     ],
@@ -37,7 +42,7 @@ let massPopChart = new Chart(graph, {
   options: {
     title: {
       display: true,
-      text: "Populations Francophones",
+      text: "Capteur thermique",
       fontSize: 24,
     },
     legend: {
@@ -62,3 +67,10 @@ let massPopChart = new Chart(graph, {
     },
   },
 });
+
+function addData(sensors) {
+    chart.data.labels.push(i++);//.push(i++)
+    chart.data.datasets[0].data.push(sensors[0].Valeur); //.push(sensors[0].data[1])
+    chart.data.datasets[1].data.push(sensors[1].Valeur);//.push(sensors[1].data[1])
+    chart.update();
+}

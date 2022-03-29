@@ -100,11 +100,11 @@ function updateSensors(sensors, simulate)
         sensors[i].addData(sensorsData[i].Timestamp, sensorsData[i].Valeur);
         sensors[i].display();
     }
+    return sensorsData;
+
 }
 
-var sensors = new Array();
 
-sensors.push(new Sensor("Capteur 1", "Thermique", "Interieur"));
-sensors.push(new Sensor("Capteur 2", "Thermique", "Exterieur"));
 
-setInterval(updateSensors, 3000, sensors, true);
+
+
