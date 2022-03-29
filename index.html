@@ -45,10 +45,10 @@
 		});
 		var msg;
 		function TempNotification(sensors){
-			if (CapteurInterior > 35){
+			if (sensors.location === "interieur" && sensors.getTodayData() > 35){
 				msg = "HotHotHot !";
 			}
-		};
+		}
 
 
 		function Notif(msg) {
