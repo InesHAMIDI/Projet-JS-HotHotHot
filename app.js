@@ -33,13 +33,31 @@ function  main(){
 async function askPermission(){
     const permission = await Notification.requestPermission()
     if(permission === 'granted'){
-        registerServiceWorker()
+        await registerServiceWorker()
     }
 }
 async function registerServiceWorker(){
     const registration = await navigator.serviceWorker.register('sw.js')
-    const subscription = await registration.pushManager.getSubscription();
-    console.log(subscription);
+    let subscription = await registration.pushManager.getSubscription();
+    if (subscription){
+        console.log(subscription)
+        return
+    }
+    
+    subscription = registration.pushManager.subscribe({
+        userVisibleOnly: true, //tjrs true prcq le user voit les notifs
+        applicationServerKey: await getPublicKey(),
+    })
+    console.log()
+}
+
+async function getPublicKey(){
+    const {key} = await fetch('/push/key', {
+        headers:{
+            Accept:'application/json'
+        }
+    }).then(r => r.json())
+    return key;
 }
 
 main()
