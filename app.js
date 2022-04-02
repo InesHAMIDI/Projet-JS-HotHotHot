@@ -1,19 +1,31 @@
 if ('serviceWorker' in navigator) {
     // Register a service worker hosted at the root of the
     // site using the default scope.
-    navigator.serviceWorker.register('sw.js').then(
+    let registration = navigator.serviceWorker.register('sw.js').then(
         (registration) => {
             console.log('Service worker registration succeeded:', registration)
         },
        (error) => {
             console.log('Service worker registration failed:', error)
         })
+
+    //pour notifs push
+    let subscription = registration.pushManager.getSubscription();
+    if(!subscription){
+        subscription = await registration.pushManager.subscribe({
+            userVisibleOnly: true, //tjrs true prcq le user voit les notifs
+            applicationServerKey: await getPublicKey(),
+        })
+        await saveSubscription(subscription)
+    }
 }
 else {
     console.log('Service workers are not supported.');
 }
 
 //pour les notifs
+
+
 function  main(){
     const permission = document.getElementById('push-permission')
     if(!permission || 
@@ -30,13 +42,6 @@ function  main(){
 
 async function askPermission(){
     const permission = await Notification.requestPermission()
-}
-    
-    subscription = await registration.pushManager.subscribe({
-        userVisibleOnly: true, //tjrs true prcq le user voit les notifs
-        applicationServerKey: await getPublicKey(),
-    })
-    key = saveSubscription(subscription)
 }
 
 async function getPublicKey(){
