@@ -14,3 +14,22 @@ if ('serviceWorker' in navigator) {
 else {
     console.log('Service workers are not supported.')
 }
+
+function  main(){
+    const permission = document.getElementById('push-permission')
+    if(!permission || 
+        !('Notification' in window) ||
+        !('ServiceWorker' in navigator)){
+        return;
+    }
+    const button = document.createElement('button')
+    button.innerText = 'Recevoir les notificatins'
+    permission.appendChild(button)
+    button.addEventListener('click')
+}
+
+function askPermission(){
+    const permission =  Notification.requestPermission()
+}
+
+main()
