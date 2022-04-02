@@ -1,4 +1,4 @@
-/*if ('serviceWorker' in navigator) {
+if ('serviceWorker' in navigator) {
     // Register a service worker hosted at the root of the
     // site using the default scope.
     navigator.serviceWorker.register('sw.js').then(
@@ -6,14 +6,12 @@
             console.log('Service worker registration succeeded:', registration)
         },
        (error) => {
-    console.log('Service worker registration failed:', error)
+            console.log('Service worker registration failed:', error)
+        })
 }
-)
-} 
-
 else {
-    console.log('Service workers are not supported.')
-}*/
+    console.log('Service workers are not supported.');
+}
 
 //pour les notifs
 function  main(){
@@ -32,23 +30,13 @@ function  main(){
 
 async function askPermission(){
     const permission = await Notification.requestPermission()
-    if(permission === 'granted'){
-        await registerServiceWorker()
-    }
 }
-async function registerServiceWorker(){
-    const registration = await navigator.serviceWorker.register('sw.js')
-    let subscription = await registration.pushManager.getSubscription();
-    if (subscription){
-        console.log(subscription)
-        return
-    }
     
-    subscription = registration.pushManager.subscribe({
+    subscription = await registration.pushManager.subscribe({
         userVisibleOnly: true, //tjrs true prcq le user voit les notifs
         applicationServerKey: await getPublicKey(),
     })
-    console.log()
+    key = saveSubscription(subscription)
 }
 
 async function getPublicKey(){
@@ -56,6 +44,23 @@ async function getPublicKey(){
         headers:{
             Accept:'application/json'
         }
+    }).then(r => r.json())
+    return key;
+}
+
+/**
+ * 
+ * @param subscription
+ * @returns {Promise<void>}
+ */
+async function saveSubscription(subscription){
+    const {key} = await fetch('/push/subscribe', {
+        method:'post',
+        headers:{
+            'Content-Type':'application/json',
+            Accept:'application/json'
+        },
+        body:JSON.stringify(subscription)
     }).then(r => r.json())
     return key;
 }
