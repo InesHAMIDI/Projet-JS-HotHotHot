@@ -25,7 +25,7 @@
                 <br>
 			</aside>
     	</nav>
-		<div id="push-permission"></div>
+		<button id="enable">Activer les notifications</button>
 
 		<div id="sensors"></div>
         <canvas id="graph"></canvas>
@@ -35,7 +35,64 @@
         <script src="graph.js"></script>
 	
 		<script>
+			/**
+			 * partie qui nous sert pour les notifs
+			 * tuto : https://developer.mozilla.org/fr/docs/Web/API/Notifications_API/Using_the_Notifications_API
+			 */
 			
+			function askNotificationPermission() {
+				function handlePermission(permission) {
+					// On affiche ou non le bouton en fonction de la réponse
+					if(Notification.permission === 'denied' || Notification.permission === 'default') {
+						notificationBtn.style.display = 'block';
+					} else {
+						notificationBtn.style.display = 'none';
+					}
+				}
+
+				// on verif si le navigateur prend les notif push
+				if (!('Notification' in window)) {
+					console.log("Ce navigateur ne prend pas en charge les notifications.");
+				} else {
+					if(checkNotificationPromise()) {
+						Notification.requestPermission()
+								.then((permission) => {
+									handlePermission(permission);
+								})
+					} else {
+						Notification.requestPermission(function(permission) {
+							handlePermission(permission);
+						});
+					}
+				}
+			}
+			
+			function checkNotificationPromise() {
+				try {
+					Notification.requestPermission().then();
+				} catch(e) {
+					return false;
+				}
+				return true;
+			}
+			
+			function createNotification(){
+				const img = '/to-do-notifications/img/icon-128.png';
+				const text = 'Coucou ! Votre tâche "' + titre + '" arrive maintenant à échéance.';
+				const notification = new Notification('Liste de trucs à faire', { body: text, icon: img });
+
+			}
+
+			const n = new Notification('Une super chanson');
+			document.addEventListener('visibilitychange', function() {
+				if (document.visibilityState === 'visible') {
+					// L'onglet est désormais visible et la notification n'est plus pertinente
+					// on peut la fermer
+					n.close();
+				}
+			});
+
+
 		</script>
     </body>
 </html>
