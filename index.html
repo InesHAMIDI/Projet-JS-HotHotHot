@@ -25,7 +25,7 @@
                 <br>
 			</aside>
     	</nav>
-		<button id="enable">Activer les notifications</button>
+		<button id="notificationBtn" onclick="askNotificationPermission()">Activer les notifications</button>
 
 		<div id="sensors"></div>
         <canvas id="graph"></canvas>
@@ -43,10 +43,11 @@
 			function askNotificationPermission() {
 				function handlePermission(permission) {
 					// On affiche ou non le bouton en fonction de la réponse
-					if(Notification.permission === 'denied' || Notification.permission === 'default') {
-						notificationBtn.style.display = 'block';
+					const button = document.getElementsByTagName('notificationBtn')[0];
+					if (Notification.permission === 'denied' || Notification.permission === 'default') {
+						button.style.display = 'block';
 					} else {
-						notificationBtn.style.display = 'none';
+						button.style.display = 'none';
 					}
 				}
 
@@ -75,12 +76,20 @@
 				}
 				return true;
 			}
+
+			/**
+			 * @param img
+			 * @param titre
+			 * @param text
+			 * @returns {Notification}
+			 * @desc Cette fonction permet de créer une notification avec les paramètres donnés
+			 */
 			
 			function createNotification(img, titre ,text){
 				this.img = img;
 				this.text = text;
 				this.titre = titre;
-				return n = new Notification(titre, {body: text, icon: img});
+				return new Notification(titre, {body: text, icon: img});
 			}
 			
 			
