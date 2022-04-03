@@ -33,8 +33,17 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1648910395946</updated>
-      <workItem from="1648910399571" duration="3719000" />
+      <workItem from="1648910399571" duration="4157000" />
+      <workItem from="1648984146610" duration="1089000" />
     </task>
+    <task id="LOCAL-00001" summary="testo">
+      <created>1648915419593</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1648915419593</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -43,7 +52,20 @@
   <component name="UnityCheckinConfiguration" checkUnsavedScenes="false" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="Both" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="testo" />
+    <option name="LAST_COMMIT_MESSAGE" value="testo" />
   </component>
 </project>

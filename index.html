@@ -76,78 +76,44 @@
 				return true;
 			}
 			
-			function createNotification(){
-				const img = '/to-do-notifications/img/icon-128.png';
-				const text = 'Coucou ! Votre tâche "' + titre + '" arrive maintenant à échéance.';
-				const notification = new Notification('Liste de trucs à faire', { body: text, icon: img });
-
+			function createNotification(img, titre ,text){
+				this.img = img;
+				this.text = text;
+				this.titre = titre;
+				return n = new Notification(titre, {body: text, icon: img});
 			}
-
-			//fonction test
-			const n = new Notification('Bienvenue !');
-			document.addEventListener('visibilitychange', function() {
-				if (document.visibilityState === 'visible') {
-					// L'onglet est désormais visible et la notification n'est plus pertinente
-					// on peut la fermer
-					n.close();
-				}
-			});
 			
-		
+			
 			if(sensors.location === 'exterieur' && sensors.data[1] >= 35){
-				const n = new Notification('alerte : HotHotHot !', 'Température extérieure supérieure à 35°');
+				titre = 'Alerte : HotHotHot !'
+				text = 'Température extérieure supérieure à 35°'
+				img = <html lang="fr"><i className="fa-solid fa-temperature-sun"/></html>
+				notification = createNotification()
+				
 				document.addEventListener('visibilitychange', function() {
 					if (document.visibilityState === 'visible') {
 						// L'onglet est désormais visible et la notification n'est plus pertinente
 						// on peut la fermer
-						n.close();
+						notification.close();
 					}
 				})
 			}
 
 			if(sensors.location === 'exterieur' && sensors.data[1] <= 0){
-				const n = new Notification('alerte : Banquise en vue !', 'Température extérieure négative !');
-				document.addEventListener('visibilitychange', function() {
-					if (document.visibilityState === 'visible') {
-						// L'onglet est désormais visible et la notification n'est plus pertinente
-						// on peut la fermer
-						n.close();
-					}
-				})
-			}
+				titre = 'Alerte : Banquise en vue !'
+				text = 'Température extérieure inférieure à 0°'
+				img = <html lang="fr"><i className="fa-solid fa-temperature-snow"/></html>
+				notification = createNotification()
 
-			if(sensors.location === 'interieur' && sensors.data[1] >= 22){
-				const n = new Notification('alerte : Baissez le chauffage !', 'Température intérieure > 22° !');
 				document.addEventListener('visibilitychange', function() {
 					if (document.visibilityState === 'visible') {
 						// L'onglet est désormais visible et la notification n'est plus pertinente
 						// on peut la fermer
-						n.close();
+						notification.close();
 					}
 				})
 			}
-
-			if(sensors.location === 'interieur' && sensors.data[1] >= 50){
-				const n = new Notification('alerte :  Appelez les pompiers ou arrêtez votre barbecue !', 'Température intérieure > 50° !');
-				document.addEventListener('visibilitychange', function() {
-					if (document.visibilityState === 'visible') {
-						// L'onglet est désormais visible et la notification n'est plus pertinente
-						// on peut la fermer
-						n.close();
-					}
-				})
-			}
-
-			if(sensors.location === 'interieur' && sensors.data[1] <= 0){
-				const n = new Notification('alerte :  canalisations gelées, appelez SOS plombier et mettez un bonnet !', 'Température intérieure < 0° !');
-				document.addEventListener('visibilitychange', function() {
-					if (document.visibilityState === 'visible') {
-						// L'onglet est désormais visible et la notification n'est plus pertinente
-						// on peut la fermer
-						n.close();
-					}
-				})
-			}
+			
 		</script>
     </body>
 </html>
