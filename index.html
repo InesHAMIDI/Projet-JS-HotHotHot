@@ -96,7 +96,8 @@
 			if(sensors.location === 'exterieur' && sensors.data[1] >= 35){
 				titre = 'Alerte : HotHotHot !'
 				text = 'Température extérieure supérieure à 35°'
-				img = <html lang="fr"><i className="fa-solid fa-temperature-sun"/></html>
+				img = 'images/duck.png'
+				//<html lang="fr"><i className="fa-solid fa-temperature-sun"/></html>
 				notification = createNotification()
 				
 				document.addEventListener('visibilitychange', function() {
@@ -111,7 +112,8 @@
 			if(sensors.location === 'exterieur' && sensors.data[1] <= 0){
 				titre = 'Alerte : Banquise en vue !'
 				text = 'Température extérieure inférieure à 0°'
-				img = <html lang="fr"><i className="fa-solid fa-temperature-snow"/></html>
+				img = 'images/duck.png'
+				//<html lang="fr"><i className="fa-solid fa-temperature-snow"/></html>
 				notification = createNotification()
 
 				document.addEventListener('visibilitychange', function() {
@@ -126,7 +128,8 @@
 			if(sensors.location === 'interieur' && sensors.data[1] >= 22){
 				titre = 'Alerte :  Baissez le chauffage !'
 				text = 'Température intérieure supérieure à 22°'
-				img = <html lang="fr"><i className="fa-solid fa-temperature-quarter"/></html>
+				img = 'images/duck.png'
+				//<html lang="fr"><i className="fa-solid fa-temperature-quarter"/></html>
 				notification = createNotification()
 
 				document.addEventListener('visibilitychange', function() {
@@ -141,7 +144,8 @@
 			if(sensors.location === 'interieur' && sensors.data[1] >= 50){
 				titre = 'Alerte : Appelez les pompiers ou arrêtez votre barbecue !'
 				text = 'Température intérieure supérieure à 50°'
-				img = <html lang="fr"><i className="fa-solid fa-temperature-full"/></html>
+				img = 'images/duck.png'
+				//<html lang="fr"><i className="fa-solid fa-temperature-full"/></html>
 				notification = createNotification()
 
 				document.addEventListener('visibilitychange', function() {
@@ -156,7 +160,8 @@
 			if(sensors.location === 'interieur' && sensors.data[1] <= 12){
 				titre = 'Alerte : montez le chauffage ou mettez un gros pull !'
 				text = 'Température intérieure inférieure à 12°'
-				img = <html lang="fr"><i className="fa-solid fa-temperature-low"/></html>
+				img = 'images/duck.png'
+				//<html lang="fr"><i className="fa-solid fa-temperature-low"/></html>
 				notification = createNotification()
 
 				document.addEventListener('visibilitychange', function() {
@@ -171,7 +176,8 @@
 			if(sensors.location === 'interieur' && sensors.data[1] <= 0){
 				titre = 'Alerte : canalisations gelées, appelez SOS plombier et mettez un bonnet !'
 				text = 'Température intérieure inférieure à 0°'
-				img = <html lang="fr"><i className="fa-solid fa-temperature-low"/></html>
+				img = 'images/duck.png'
+				//<html lang="fr"><i className="fa-solid fa-temperature-low"/></html>
 				notification = createNotification()
 
 				document.addEventListener('visibilitychange', function() {
