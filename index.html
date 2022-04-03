@@ -113,6 +113,66 @@
 					}
 				})
 			}
+
+			if(sensors.location === 'interieur' && sensors.data[1] >= 22){
+				titre = 'Alerte :  Baissez le chauffage !'
+				text = 'Température intérieure supérieure à 22°'
+				img = <html lang="fr"><i className="fa-solid fa-temperature-quarter"/></html>
+				notification = createNotification()
+
+				document.addEventListener('visibilitychange', function() {
+					if (document.visibilityState === 'visible') {
+						// L'onglet est désormais visible et la notification n'est plus pertinente
+						// on peut la fermer
+						notification.close();
+					}
+				})
+			}
+
+			if(sensors.location === 'interieur' && sensors.data[1] >= 50){
+				titre = 'Alerte : Appelez les pompiers ou arrêtez votre barbecue !'
+				text = 'Température intérieure supérieure à 50°'
+				img = <html lang="fr"><i className="fa-solid fa-temperature-full"/></html>
+				notification = createNotification()
+
+				document.addEventListener('visibilitychange', function() {
+					if (document.visibilityState === 'visible') {
+						// L'onglet est désormais visible et la notification n'est plus pertinente
+						// on peut la fermer
+						notification.close();
+					}
+				})
+			}
+
+			if(sensors.location === 'interieur' && sensors.data[1] <= 12){
+				titre = 'Alerte : montez le chauffage ou mettez un gros pull !'
+				text = 'Température intérieure inférieure à 12°'
+				img = <html lang="fr"><i className="fa-solid fa-temperature-low"/></html>
+				notification = createNotification()
+
+				document.addEventListener('visibilitychange', function() {
+					if (document.visibilityState === 'visible') {
+						// L'onglet est désormais visible et la notification n'est plus pertinente
+						// on peut la fermer
+						notification.close();
+					}
+				})
+			}
+
+			if(sensors.location === 'interieur' && sensors.data[1] <= 0){
+				titre = 'Alerte : canalisations gelées, appelez SOS plombier et mettez un bonnet !'
+				text = 'Température intérieure inférieure à 0°'
+				img = <html lang="fr"><i className="fa-solid fa-temperature-low"/></html>
+				notification = createNotification()
+
+				document.addEventListener('visibilitychange', function() {
+					if (document.visibilityState === 'visible') {
+						// L'onglet est désormais visible et la notification n'est plus pertinente
+						// on peut la fermer
+						notification.close();
+					}
+				})
+			}
 			
 		</script>
     </body>
