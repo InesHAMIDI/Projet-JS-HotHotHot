@@ -3,6 +3,9 @@ self.addEventListener('install', (e) => {
       caches.open('HotHotHot').then((cache) => cache.addAll([
         '/Projet-JS-HotHotHot/index.html',
         '/Projet-JS-HotHotHot/app.js',
+        '/Projet-JS-HotHotHot/scripts/grah.js',
+        '/Projet-JS-HotHotHot/scripts/Sensor.js',
+        '/Projet-JS-HotHotHot/scripts/SensorData.js',
         '/Projet-JS-HotHotHot/images/duck.png',
       ])),
     );
