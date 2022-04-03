@@ -91,7 +91,20 @@
 				this.titre = titre;
 				return new Notification(titre, {body: text, icon: img});
 			}
-			
+
+			titre = 'Bienvenue'
+			text = 'Merci d\'utiliser HotHotHot'
+			img = 'images/duck.png'
+			//<html lang="fr"><i className="fa-solid fa-temperature-low"/></html>
+			notification = createNotification()
+
+			document.addEventListener('visibilitychange', function() {
+				if (document.visibilityState === 'visible') {
+					// L'onglet est désormais visible et la notification n'est plus pertinente
+					// on peut la fermer
+					notification.close();
+				}
+			})
 			
 			if(sensors.location === 'exterieur' && sensors.data[1] >= 35){
 				titre = 'Alerte : HotHotHot !'
